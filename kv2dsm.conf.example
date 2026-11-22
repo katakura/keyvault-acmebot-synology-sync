@@ -1,0 +1,28 @@
+# kv2dsm.conf
+# Copy this file to kv2dsm.conf (next to kv2dsm.sh, or under $KV2DSM_DIR) and fill in real values.
+# Never commit the filled-in kv2dsm.conf.
+
+# Entra ID app registration (service principal) used to read the certificate secret.
+# Scope its role as tightly as possible (ideally a single secret via an ABAC condition).
+TENANT='<Entra ID tenant ID>'
+CLIENT_ID='<service principal client ID>'
+CLIENT_SECRET='<service principal client secret>'
+
+# Azure Key Vault holding the certificate (as a PFX secret, e.g. issued by Acmebot).
+VAULT='kv-example-tlscert'
+SECRET_NAME='example-com'
+
+# Domain expected in the certificate's SAN - used as a sanity check before importing.
+EXPECT_DOMAIN='example.com'
+
+# Synology DSM login. This MUST be a dedicated account with 2FA disabled -
+# the DSM Web API login does not support 2FA. Scope it to certificate
+# management only; do not reuse your everyday admin account.
+SYNO_USERNAME='<DSM login username>'
+SYNO_PASSWORD='<DSM login password>'
+
+# Description text used to identify which certificate slot on DSM to replace.
+SYNO_CERT_DESC='example.com'
+
+# Optional: override if DSM isn't reachable at the default local address.
+# SYNO_BASE='http://localhost:5000'
